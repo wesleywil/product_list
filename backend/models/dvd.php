@@ -20,13 +20,16 @@ class Dvd extends Product
         return $this->size;
     }
 
-    public function save()
+    public function save($db)
     {
-        $product_id = parent::save();
+        $product_id = parent::save($db);
 
-        $sql = "INSERT INTO dvd (product_id, size) VALUES(?,?)";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([$product_id, $this->size]);
+        $sql = "INSERT INTO dvd (product_id, size) VALUES(:product_id, :size)";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([
+            ':product_id' => $product_id,
+            ':size' => $this->size
+        ]);
 
         return $product_id;
     }
