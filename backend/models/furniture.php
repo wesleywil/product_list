@@ -43,4 +43,15 @@ class Furniture extends Product
     {
         return $this->length;
     }
+
+    public function save()
+    {
+        $product_id = parent::save();
+
+        $sql = "INSERT INTO furniture (product_id, height, width, length) VALUES(?,?,?,?)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$product_id, $this->height, $this->width, $this->length]);
+
+        return $product_id;
+    }
 }

@@ -19,4 +19,15 @@ class Book extends Product
     {
         return $this->weight;
     }
+
+    public function save()
+    {
+        $product_id = parent::save();
+
+        $sql = "INSERT INTO book (product_id, weight) VALUES(?,?)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$product_id, $this->weight]);
+
+        return $product_id;
+    }
 }

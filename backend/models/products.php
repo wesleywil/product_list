@@ -73,7 +73,13 @@ abstract class Product implements ProductInterface
 
     public function save()
     {
+        $sql = "INSERT INTO products (sku, name, price, type) VALUES(:sku, :name, :price, :type)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$this->sku, $this->name, $this->price, $this->type]);
 
+        $product_id = $this->db->lastInsertId();
+
+        return $product_id;
     }
 
     public function display()
