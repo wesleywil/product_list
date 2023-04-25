@@ -1,34 +1,26 @@
 <?php
-interface ProductInterface
-{
-    public function save();
-    public function display();
-}
 
-abstract class Product implements ProductInterface
+
+abstract class Product
 {
-    protected $id;
+
+    protected $userData;
     protected $sku;
     protected $name;
     protected $price;
     protected $type;
 
-    public function __construct($id, $sku, $name, $price, $type)
-    {
-        $this->id = $id;
-        $this->sku = $sku;
-        $this->name = $name;
-        $this->price = $price;
-        $this->type = $type;
-    }
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
+    protected $specific_attribute;
 
-    public function getId()
+    protected $attribute_value;
+
+    public function __construct($result)
     {
-        return $this->id;
+        $this->userData = $result;
+        $this->sku = $result['sku'];
+        $this->name = $result['name'];
+        $this->price = $result['price'];
+        $this->type = $result['type'];
     }
 
     public function setSku($sku)
@@ -71,29 +63,24 @@ abstract class Product implements ProductInterface
         return $this->type;
     }
 
-    public function save($db)
+    public function setSpecific_attribute($specific_attribute)
     {
-        $sql = "INSERT INTO products (sku, name, price, type) VALUES(:sku, :name, :price, :type)";
-        $stmt = $this->$db->prepare($sql);
-        $stmt->execute([
-            ':sku' => $this->sku,
-            ':name' => $this->name,
-            ':price' => $this->price,
-            ':type' => $this->type
-        ]);
-
-        $product_id = $this->$db->lastInsertId();
-
-        return $product_id;
+        $this->specific_attribute = $specific_attribute;
     }
 
-    public function display()
+    public function getSpecific_attribute()
     {
-        $output = "<h2>{$this->getSku()}</h2>";
-        $output .= "<h2>{$this->getName()}</h2>";
-        $output .= "<h2>{$this->getPrice()}</h2>";
-        $output .= "<h2>{$this->getType()}</h2>";
-        return $output;
+        return $this->specific_attribute;
+    }
+
+    public function setAttribute_value($attribute_value)
+    {
+        $this->attribute_value = $attribute_value;
+    }
+
+    public function getAttribute_value()
+    {
+        return $this->attribute_value;
     }
 
 }
