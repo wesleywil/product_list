@@ -3,3 +3,9 @@
 
 # Anotations file
 note.txt
+
+
+# Test files
+backend/config/test.php
+backend/test/
+backend/test/saveProduct.php
