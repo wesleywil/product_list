@@ -89,7 +89,11 @@ abstract class Product implements ProductInterface
 
     public function display()
     {
-
+        $output = "<h2>{$this->getSku()}</h2>";
+        $output .= "<h2>{$this->getName()}</h2>";
+        $output .= "<h2>{$this->getPrice()}</h2>";
+        $output .= "<h2>{$this->getType()}</h2>";
+        return $output;
     }
 
 }

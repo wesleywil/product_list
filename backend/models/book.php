@@ -30,4 +30,14 @@ class Book extends Product
 
         return $product_id;
     }
+
+    public function display()
+    {
+        $output = "<h2>{$this->getSku()}</h2>";
+        $output .= "<h2>{$this->getName()}</h2>";
+        $output .= "<h2>{$this->getPrice()}</h2>";
+        $output .= "<h2>{$this->getType()}</h2>";
+        $output .= "<h2>{$this->getWeight()}</h2>";
+        return $output;
+    }
 }
