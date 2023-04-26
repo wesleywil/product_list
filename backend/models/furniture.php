@@ -10,7 +10,7 @@ class Furniture extends Product
         parent::__construct($result);
         $this->type = "Furniture";
         $this->specific_attribute = 'Dimensions';
-        $this->attribute_value = $this->userData['height'] . 'X' . $this->userData['width'] . 'X' . $this->userData['length'];
+        $this->attribute_value = $this->userData['height'] . 'x' . $this->userData['width'] . 'x' . $this->userData['length'];
 
     }
 }

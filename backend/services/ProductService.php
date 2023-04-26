@@ -10,40 +10,48 @@ class ProductService
         $this->db = $db;
     }
 
-// public function saveProduct(Product $product)
-// {
-//     $sku = $product->getSku();
-//     $name = $product->getName();
-//     $price = $product->getPrice();
-//     $type = $product->getType();
+    private $productTypes = array(
+        'Furniture' => 'Furniture',
+        'Dvd' => 'Dvd',
+        'Book' => 'Book'
+    );
 
-//     $stmt = $this->db->prepare("INSERT INTO products(sku, name, price, type) VALUES(?,?,?,?)");
-//     $stmt->bind_param("ssds", $sku, $name, $price, $type);
-//     $stmt->execute();
-//     $product->save($this->db);
-// }
 
-// public function getAllProducts()
-// {
-//     $stmt = $this->db->prepare("SELECT*FROM products");
-//     $stmt->execute();
-//     $result = $stmt->get_result();
+    public function productSave($data, $productType)
+    {
+        if (!array_key_exists($productType, $this->productTypes)) {
+            throw new Exception('Invalid product type');
+        }
 
-//     $products = array();
+        $strategy = $this->productTypes[$productType];
+        $product = new $strategy($data);
 
-//     while ($row = $result->fetch_assoc()) {
-//         $producType = $row['type'];
-//         $product = new $producType($row['sku'], $row['nanme'], $row['price'], ...$row);
+        $sku = $product->getSku();
+        $name = $product->getName();
+        $price = $product->getPrice();
+        $type = $product->getType();
+        $specific_attribute = $product->getSpecific_attribute();
+        $attribute_value = $product->getAttribute_value();
 
-//         $product->setId($row['id']);
-//         $products[] = $product;
-//     }
+        $stmt = $this->db->prepare("INSERT INTO products (sku, name, price, type, specific_attribute, attribute_value) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssdsss", $sku, $name, $price, $type, $specific_attribute, $attribute_value);
+        $stmt->execute();
+        $stmt->close();
+    }
 
-//     $output = '';
-//     foreach ($products as $product) {
-//         $output .= $product->display();
-//     }
+    public function getAllProducts()
+    {
+        $stmt = $this->db->prepare("SELECT * FROM products");
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-//     return $output;
-// }
+        $products = array();
+        while ($row = $result->fetch_assoc()) {
+            $products[] = $row;
+        }
+
+        $stmt->close();
+
+        return $products;
+    }
 }

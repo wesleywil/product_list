@@ -20,7 +20,6 @@ abstract class Product
         $this->sku = $result['sku'];
         $this->name = $result['name'];
         $this->price = $result['price'];
-        $this->type = $result['type'];
     }
 
     public function setSku($sku)
