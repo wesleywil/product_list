@@ -12,6 +12,10 @@ $productService = new ProductService($db);
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
     $products = $productService->getAllProducts();
     header('Content-Type: application/json');
+    header('Access-Control-Allow-Origin: http://localhost:5173');
+    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+    header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+
     echo json_encode($products);
 } else {
     // POST
@@ -35,6 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     $productService->productSave($productData, $productType);
 
     header('HTTP/1.1 200 OK');
+    header('Content-Type: application/json');
+    header('Access-Control-Allow-Origin: http://localhost:5173');
+    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+    header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
     echo 'Product added successfully';
 
 }
