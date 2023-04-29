@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
+import formReducer from './form/form';
 import productReducer from './products/products';
 
 export const store = configureStore({
     reducer:{
-        products:productReducer
+        products:productReducer,
+        form:formReducer
     }
 });
 

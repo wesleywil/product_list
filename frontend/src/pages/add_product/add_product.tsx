@@ -1,28 +1,83 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
 import { Link } from "../../../node_modules/react-router-dom/dist/index";
+import { createProduct, Product } from "../../redux/products/products";
+import { cleanFormValues } from "../../redux/form/form";
+
+// Components
 import BookForm from "../../components/book_form/book_form.component";
 import DvdForm from "../../components/dvd_form/dvd_form.component";
-
 import Footer from "../../components/footer/footer.component";
 import FurnitureForm from "../../components/furniture_form/furniture_form.component";
 import PageMenu from "../../components/page_menu/page_menu.component";
 
 const AddProduct = () => {
-  const [type, setType] = useState<"none" | "furniture" | "book" | "dvd">(
+  const weight = useSelector((state: RootState) => state.form.weight);
+  const height = useSelector((state: RootState) => state.form.height);
+  const width = useSelector((state: RootState) => state.form.width);
+  const length = useSelector((state: RootState) => state.form.length);
+  const size = useSelector((state: RootState) => state.form.size);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const [type, setType] = useState<"none" | "Furniture" | "Book" | "Dvd">(
     "none"
   );
+  const [inputValues, setInputValues] = useState<Product>({
+    sku: "",
+    name: "",
+    price: 0,
+    productType: "",
+  } as Product);
 
   const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setType(event.target.value as "none" | "furniture" | "book" | "dvd");
+    dispatch(cleanFormValues());
+    setType(event.target.value as "none" | "Furniture" | "Book" | "Dvd");
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setInputValues((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = () => {
+    const data = {
+      weight,
+      height,
+      width,
+      length,
+      size,
+      sku: inputValues.sku,
+      name: inputValues.name,
+      price: inputValues.price,
+      productType: type,
+    };
+
+    dispatch(createProduct(data));
   };
 
   return (
     <div className="min-h-screen border border-red-600">
       {/* Menu */}
       <PageMenu title="Product Add">
-        <button className="px-2 bg-blue-400 hover:bg-blue-600 text-white hover:text-slate-200 text-xl font-bold rounded transition duration-700 ease-in-out">
-          Save
-        </button>
+        {type === "none" ? (
+          <button
+            disabled
+            className="px-2 bg-slate-400  text-slate-200  text-xl font-bold rounded"
+          >
+            Save
+          </button>
+        ) : (
+          <button
+            onClick={handleSubmit}
+            className="px-2 bg-blue-400 hover:bg-blue-600 text-white hover:text-slate-200 text-xl font-bold rounded transition duration-700 ease-in-out"
+          >
+            Save
+          </button>
+        )}
         <Link
           to="/"
           className="pt-1 px-2 bg-red-400 hover:bg-red-600 text-white hover:text-slate-200 text-xl font-bold rounded transition duration-700 ease-in-out"
@@ -37,6 +92,9 @@ const AddProduct = () => {
             <label>SKU</label>
             <input
               type="text"
+              name="sku"
+              onChange={handleInputChange}
+              required
               className="grow border border-blue-500 rounded outline-0"
             />
           </div>
@@ -44,6 +102,9 @@ const AddProduct = () => {
             <label>Name</label>
             <input
               type="text"
+              name="name"
+              onChange={handleInputChange}
+              required
               className="grow border border-blue-500 rounded outline-0"
             />
           </div>
@@ -52,6 +113,9 @@ const AddProduct = () => {
             <label>Price ($)</label>
             <input
               type="text"
+              name="price"
+              onChange={handleInputChange}
+              required
               className="grow border border-blue-500 rounded outline-0"
             />
           </div>
@@ -63,17 +127,17 @@ const AddProduct = () => {
               value={type}
             >
               <option value="none">Product Type</option>
-              <option value="book">Book</option>
-              <option value="dvd">DVD</option>
-              <option value="furniture">Furniture</option>
+              <option value="Book">Book</option>
+              <option value="Dvd">DVD</option>
+              <option value="Furniture">Furniture</option>
             </select>
           </div>
         </form>
-        {type === "furniture" ? (
+        {type === "Furniture" ? (
           <FurnitureForm />
-        ) : type === "book" ? (
+        ) : type === "Book" ? (
           <BookForm />
-        ) : type === "dvd" ? (
+        ) : type === "Dvd" ? (
           <DvdForm />
         ) : (
           ""
