@@ -10,9 +10,9 @@ abstract class Product
     protected $price;
     protected $type;
 
-    protected $specific_attribute;
+    protected $specificAttribute;
 
-    protected $attribute_value;
+    protected $attributeValue;
 
     public function __construct($result)
     {
@@ -62,24 +62,24 @@ abstract class Product
         return $this->type;
     }
 
-    public function setSpecific_attribute($specific_attribute)
+    public function setSpecificAttribute($specificAttribute)
     {
-        $this->specific_attribute = $specific_attribute;
+        $this->specificAttribute = $specificAttribute;
     }
 
-    public function getSpecific_attribute()
+    public function getSpecificAttribute()
     {
-        return $this->specific_attribute;
+        return $this->specificAttribute;
     }
 
-    public function setAttribute_value($attribute_value)
+    public function setAttributeValue($attributeValue)
     {
-        $this->attribute_value = $attribute_value;
+        $this->attributeValue = $attributeValue;
     }
 
-    public function getAttribute_value()
+    public function getAttributeValue()
     {
-        return $this->attribute_value;
+        return $this->attributeValue;
     }
 
 }

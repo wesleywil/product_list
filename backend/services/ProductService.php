@@ -30,11 +30,11 @@ class ProductService
         $name = $product->getName();
         $price = $product->getPrice();
         $type = $product->getType();
-        $specific_attribute = $product->getSpecific_attribute();
-        $attribute_value = $product->getAttribute_value();
+        $specificAttribute = $product->getSpecificAttribute();
+        $attributeValue = $product->getAttributeValue();
 
-        $stmt = $this->db->prepare("INSERT INTO products (sku, name, price, type, specific_attribute, attribute_value) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssdsss", $sku, $name, $price, $type, $specific_attribute, $attribute_value);
+        $stmt = $this->db->prepare("INSERT INTO products (sku, name, price, type, specificAttribute, attributeValue) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssdsss", $sku, $name, $price, $type, $specificAttribute, $attributeValue);
         $stmt->execute();
         $stmt->close();
     }
