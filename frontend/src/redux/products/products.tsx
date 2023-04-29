@@ -2,18 +2,20 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export interface Product {
+  id?: string;
   sku: string;
   name: string;
   price: number;
   type: string;
   specificAttribute: string;
-  attributeValue: {
+  userData?: {
     weight?: string;
     height?: string;
     width?: string;
     length?: string;
     size?: string;
   };
+  attributeValue?: string;
 }
 
 export interface ProductState {
@@ -31,7 +33,8 @@ const initialState: ProductState = {
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
-    const res = await axios.get("localhost:8000/");
+    const res = await axios.get("http://localhost:8000");
+    console.log("Products from REDUX", res.data);
     return res.data;
   }
 );

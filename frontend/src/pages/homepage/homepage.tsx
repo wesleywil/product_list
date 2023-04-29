@@ -1,9 +1,25 @@
-import { Link } from "../../../node_modules/react-router-dom/dist/index";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../../redux/store";
+import { Link } from "react-router-dom";
+
+import { fetchProducts } from "../../redux/products/products";
+
 import Footer from "../../components/footer/footer.component";
 import PageMenu from "../../components/page_menu/page_menu.component";
 import ProductItem from "../../components/product_item/product_item.component";
 
 const Homepage = () => {
+  const status = useSelector((state: RootState) => state.products.status);
+  const products = useSelector((state: RootState) => state.products.products);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    console.log("Products", products);
+    if (status === "idle") {
+      dispatch(fetchProducts());
+    }
+  }, [status, products]);
   return (
     <div className="min-h-screen border border-red-600">
       {/* Menu */}
@@ -20,11 +36,9 @@ const Homepage = () => {
       </PageMenu>
       {/* Product List */}
       <div className="p-2 flex flex-wrap justify-center gap-4">
-        <ProductItem />
-        <ProductItem />
-        <ProductItem />
-        <ProductItem />
-        <ProductItem />
+        {products.length
+          ? products.map((item) => <ProductItem key={item.id} item={item} />)
+          : "NO PRODUCTS"}
       </div>
       {/* Footer */}
       <Footer />
