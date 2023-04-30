@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface FormState {
+  sku: string;
+  name: string;
+  price: number;
+  productType: string;
   weight?: string;
   height?: string;
   width?: string;
@@ -9,6 +13,10 @@ export interface FormState {
 }
 
 const initialState: FormState = {
+  sku: "",
+  name: "",
+  price: 0,
+  productType: "",
   weight: "",
   height: "",
   width: "",
