@@ -21,12 +21,14 @@ export interface Product {
 
 export interface ProductState {
   products: Product[];
+  products_id: number[];
   status: string;
   error: any;
 }
 
 const initialState: ProductState = {
   products: [],
+  products_id: [],
   status: "idle",
   error: null,
 };
@@ -53,10 +55,40 @@ export const createProduct = createAsyncThunk(
   }
 );
 
+export const deleteProducts = createAsyncThunk(
+  "products/deleteProducts",
+  async (ids: number[]) => {
+    const res = await axios.delete("http://localhost:8000", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        ids: ids,
+      },
+    });
+    return res.data;
+  }
+);
+
 export const productSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    select_products: (state, { payload }) => {
+      return {
+        ...state,
+        products_id: [...state.products_id, payload],
+      };
+    },
+    remove_products: (state, { payload }) => {
+      return {
+        ...state,
+        products_id: state.products_id.filter(
+          (productId) => productId !== payload
+        ),
+      };
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
@@ -77,9 +109,19 @@ export const productSlice = createSlice({
       })
       .addCase(createProduct.rejected, (state) => {
         state.status = "error in addding new product";
+      })
+      .addCase(deleteProducts.pending, (state) => {
+        state.status = "deleting";
+      })
+      .addCase(deleteProducts.fulfilled, (state) => {
+        state.status = "product deleted successfully";
+        state.products_id = [];
+      })
+      .addCase(deleteProducts.rejected, (state) => {
+        state.status = "error in deleting product";
       });
   },
 });
 
-export const {} = productSlice.actions;
+export const { select_products, remove_products } = productSlice.actions;
 export default productSlice.reducer;

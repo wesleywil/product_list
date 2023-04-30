@@ -54,4 +54,12 @@ class ProductService
 
         return $products;
     }
+
+    public function deleteProduct($idList)
+    {
+        $ids = implode(",", $idList);
+        $stmt = $this->db->prepare("DELETE FROM products WHERE id IN ($ids)");
+        $stmt->execute();
+        $stmt->close();
+    }
 }

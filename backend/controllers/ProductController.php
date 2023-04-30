@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
     echo json_encode($products);
-} else {
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // POST
     header("Access-Control-Allow-Origin: http://localhost:5173");
     header("Content-Type: application/json; charset=UTF-8");
@@ -43,9 +43,19 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     $productType = $data['productType'];
 
     $productService->productSave($productData, $productType);
-
-
     echo 'Product added successfully';
+} else {
+    //DELETE
+    header("Access-Control-Allow-Origin: http://localhost:5173");
+    header("Content-Type: application/json; charset=UTF-8");
+    header("Access-Control-Allow-Methods: GET,POST,DELETE");
+    header("Access-Control-Max-Age: 3600");
+    header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
+    $jsonData = file_get_contents('php://input');
+    $data = json_decode($jsonData, true);
+    $ids = $data['ids'];
+    $productService->deleteProduct($ids);
+    echo 'Products were successfully deleted';
 }
 ?>

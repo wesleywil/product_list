@@ -1,14 +1,35 @@
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import {
+  select_products,
+  remove_products,
+} from "../../redux/products/products";
+
 import { Product } from "../../redux/products/products";
+import React from "react";
 
 interface ProductItemProp {
   item: Product;
 }
 
 const ProductItem = ({ item }: ProductItemProp) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const id = item.id;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked;
+    if (checked) {
+      dispatch(select_products(id));
+    } else {
+      dispatch(remove_products(id));
+    }
+  };
+
   return (
     <div className="w-52 h-42 p-2  border-2 rounded">
       <div>
-        <input type="checkbox" />
+        <input type="checkbox" onChange={handleChange} />
+        <span>{item.id}</span>
       </div>
       <div className="p-2 flex flex-col justify-center items-center text-xl">
         <h1>{item.sku}</h1>
