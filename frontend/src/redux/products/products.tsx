@@ -44,19 +44,6 @@ export const createProduct = createAsyncThunk(
   "products/createProduct",
   async (data: Product) => {
     console.log("Create Product");
-    const userData = {
-      sku: data.sku,
-      name: data.name,
-      price: data.price,
-      specificAttribute: data.specificAttribute,
-      weight: data.userData?.weight,
-      height: data.userData?.height,
-      width: data.userData?.width,
-      length: data.userData?.length,
-      size: data.userData?.size,
-      productType: data.productType,
-    };
-    console.log("DATA RECEIVED", data);
     const res = await axios.post("http://localhost:8000", data, {
       headers: {
         "Content-Type": "application/json",

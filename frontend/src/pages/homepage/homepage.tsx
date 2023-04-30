@@ -16,7 +16,7 @@ const Homepage = () => {
 
   useEffect(() => {
     console.log("Products", products);
-    if (status === "idle") {
+    if (status === "idle" || status === "product added successfully") {
       dispatch(fetchProducts());
     }
   }, [status, products]);

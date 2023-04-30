@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
-import { Link } from "../../../node_modules/react-router-dom/dist/index";
+import { Link, useNavigate } from "react-router-dom";
 import { createProduct, Product } from "../../redux/products/products";
 import { cleanFormValues } from "../../redux/form/form";
 
@@ -13,6 +13,8 @@ import FurnitureForm from "../../components/furniture_form/furniture_form.compon
 import PageMenu from "../../components/page_menu/page_menu.component";
 
 const AddProduct = () => {
+  const navigate = useNavigate();
+
   const weight = useSelector((state: RootState) => state.form.weight);
   const height = useSelector((state: RootState) => state.form.height);
   const width = useSelector((state: RootState) => state.form.width);
@@ -55,8 +57,7 @@ const AddProduct = () => {
       price: inputValues.price,
       productType: type,
     };
-
-    dispatch(createProduct(data));
+    Promise.all([dispatch(createProduct(data)), navigate("/")]);
   };
 
   return (
