@@ -4,6 +4,7 @@ import { AppDispatch, RootState } from "../../redux/store";
 import { Link, useNavigate } from "react-router-dom";
 import { createProduct, Product } from "../../redux/products/products";
 import { cleanFormValues } from "../../redux/form/form";
+import { set_type_form } from "../../redux/utils/utils";
 
 // Components
 import BookForm from "../../components/book_form/book_form.component";
@@ -15,6 +16,9 @@ import PageMenu from "../../components/page_menu/page_menu.component";
 const AddProduct = () => {
   const navigate = useNavigate();
 
+  const form_type = useSelector(
+    (state: RootState) => state.utils.hide_type_form
+  );
   const weight = useSelector((state: RootState) => state.form.weight);
   const height = useSelector((state: RootState) => state.form.height);
   const width = useSelector((state: RootState) => state.form.width);
@@ -22,9 +26,6 @@ const AddProduct = () => {
   const size = useSelector((state: RootState) => state.form.size);
   const dispatch = useDispatch<AppDispatch>();
 
-  const [type, setType] = useState<"none" | "Furniture" | "Book" | "Dvd">(
-    "none"
-  );
   const [inputValues, setInputValues] = useState<Product>({
     sku: "",
     name: "",
@@ -34,7 +35,7 @@ const AddProduct = () => {
 
   const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(cleanFormValues());
-    setType(event.target.value as "none" | "Furniture" | "Book" | "Dvd");
+    dispatch(set_type_form(event.target.value));
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +56,7 @@ const AddProduct = () => {
       sku: inputValues.sku,
       name: inputValues.name,
       price: inputValues.price,
-      productType: type,
+      productType: form_type,
     };
     Promise.all([dispatch(createProduct(data)), navigate("/")]);
   };
@@ -64,7 +65,7 @@ const AddProduct = () => {
     <div className="min-h-screen border border-red-600">
       {/* Menu */}
       <PageMenu title="Product Add">
-        {type === "none" ? (
+        {form_type === "none" ? (
           <button
             disabled
             className="px-2 bg-slate-400  text-slate-200  text-xl font-bold rounded"
@@ -125,7 +126,7 @@ const AddProduct = () => {
             <select
               className="grow border border-blue-500 rounded outline-0"
               onChange={handleTypeChange}
-              value={type}
+              value={form_type}
             >
               <option value="none">Product Type</option>
               <option value="Book">Book</option>
@@ -134,11 +135,11 @@ const AddProduct = () => {
             </select>
           </div>
         </form>
-        {type === "Furniture" ? (
+        {form_type === "Furniture" ? (
           <FurnitureForm />
-        ) : type === "Book" ? (
+        ) : form_type === "Book" ? (
           <BookForm />
-        ) : type === "Dvd" ? (
+        ) : form_type === "Dvd" ? (
           <DvdForm />
         ) : (
           ""
