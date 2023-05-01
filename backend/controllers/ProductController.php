@@ -20,7 +20,10 @@ function addHeaders()
 }
 
 // Handle HTTP requests
-if ($_SERVER['REQUEST_METHOD'] === "GET") {
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    addHeaders();
+    exit;
+} elseif ($_SERVER['REQUEST_METHOD'] === "GET") {
     // Headers
     addHeaders();
 
@@ -38,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     foreach ($requiredFields as $field) {
         if (empty($data[$field])) {
             http_response_code(400);
-            echo json_encode(['message' => 'Missing required fields: $field']);
+            echo json_encode(["message" => "Missing required fields: $field"]);
             exit();
         }
     }
