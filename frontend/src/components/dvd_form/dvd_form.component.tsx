@@ -12,7 +12,7 @@ const DvdForm = () => {
   return (
     <div className="p-2 text-xl flex flex-col gap-3 border-2 rounded">
       <div className="flex gap-2 order">
-        <label>Size(MB)</label>
+        <label>Size(GB)</label>
         <input
           type="number"
           name="size"
@@ -22,7 +22,7 @@ const DvdForm = () => {
         />
       </div>
       <span className="text-base text-center">
-        Please provide de storage size in Megabytes(MB)*
+        Please provide de storage size in Gigabytes(GB)*
       </span>
     </div>
   );

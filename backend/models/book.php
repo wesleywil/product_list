@@ -11,6 +11,6 @@ class Book extends Product
         parent::__construct($result);
         $this->type = "Book";
         $this->specificAttribute = 'Weight';
-        $this->attributeValue = $this->userData['weight'] . "Kg";
+        $this->attributeValue = $this->userData['weight'] . " Kg";
     }
 }
