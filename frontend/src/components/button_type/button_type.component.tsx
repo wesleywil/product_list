@@ -31,7 +31,7 @@ const ButtonType = () => {
       price,
       productType,
     };
-    Promise.all([dispatch(createProduct(data)), navigate("/")]);
+    dispatch(createProduct(data));
   };
   return (
     <>

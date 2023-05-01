@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { cleanFormValues, setFormValues } from "../../redux/form/form";
 import { set_type_form } from "../../redux/utils/utils";
 
@@ -11,11 +11,15 @@ import Footer from "../../components/footer/footer.component";
 import FurnitureForm from "../../components/furniture_form/furniture_form.component";
 import PageMenu from "../../components/page_menu/page_menu.component";
 import ButtonType from "../../components/button_type/button_type.component";
+import { useEffect } from "react";
 
 const AddProduct = () => {
+  const navigate = useNavigate();
+
   const form_type = useSelector(
     (state: RootState) => state.utils.hide_type_form
   );
+  const status = useSelector((state: RootState) => state.products.status);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -27,6 +31,12 @@ const AddProduct = () => {
     const { name, value } = event.target;
     dispatch(setFormValues({ name, value }));
   };
+
+  useEffect(() => {
+    if (status === "product added successfully") {
+      navigate("/");
+    }
+  }, [status]);
 
   return (
     <div className="min-h-screen border border-red-600">
@@ -67,7 +77,7 @@ const AddProduct = () => {
           <div className="flex gap-2 order">
             <label>Price ($)</label>
             <input
-              type="text"
+              type="number"
               name="price"
               onChange={handleInputChange}
               required
