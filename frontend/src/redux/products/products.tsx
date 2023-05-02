@@ -37,7 +37,6 @@ export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
     const res = await axios.get("http://localhost:8000");
-    console.log("Products from REDUX", res.data);
     return res.data;
   }
 );
@@ -45,7 +44,6 @@ export const fetchProducts = createAsyncThunk(
 export const createProduct = createAsyncThunk(
   "products/createProduct",
   async (data: Product) => {
-    console.log("Create Product");
     const res = await axios.post("http://localhost:8000", data, {
       headers: {
         "Content-Type": "application/json",

@@ -39,7 +39,6 @@ export const formSlice = createSlice({
       };
     },
     cleanFormValues: (state) => {
-      console.log("Test");
       state.weight = "";
       state.height = "";
       state.width = "";

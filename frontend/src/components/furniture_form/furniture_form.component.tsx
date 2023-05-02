@@ -6,7 +6,6 @@ const FurnitureForm = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("ON change");
     const { name, value } = e.target;
     dispatch(setFormValues({ name, value }));
   };

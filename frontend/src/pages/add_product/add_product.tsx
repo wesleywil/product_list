@@ -39,7 +39,7 @@ const AddProduct = () => {
   }, [status]);
 
   return (
-    <div className="min-h-screen border border-red-600">
+    <div className="min-h-screen overflow-hidden">
       {/* Menu */}
       <PageMenu title="Product Add">
         <ButtonType />
@@ -51,7 +51,7 @@ const AddProduct = () => {
         </Link>
       </PageMenu>
       {/* Form */}
-      <div className="p-2 flex flex-col items-center justify-center gap-4 border">
+      <div className="p-2 flex flex-col items-center justify-center gap-4">
         <form className="text-xl flex flex-col gap-3">
           <div className="flex gap-2 order">
             <label>SKU</label>

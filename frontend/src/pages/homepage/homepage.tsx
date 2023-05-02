@@ -18,7 +18,6 @@ const Homepage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    console.log("Products", products);
     if (
       status === "idle" ||
       status === "product added successfully" ||
@@ -29,11 +28,10 @@ const Homepage = () => {
   }, [status, products]);
 
   const handleDelete = () => {
-    console.log("Deleting products", products_id);
     dispatch(deleteProducts(products_id));
   };
   return (
-    <div className="min-h-screen border border-red-600">
+    <div className="min-h-screen overflow-hidden">
       {/* Menu */}
       <PageMenu title="Product List">
         <Link
@@ -59,7 +57,7 @@ const Homepage = () => {
         )}
       </PageMenu>
       {/* Product List */}
-      <div className="p-2 flex flex-wrap justify-center gap-4">
+      <div className="mb-24 p-2 flex flex-wrap justify-center gap-4">
         {products.length
           ? products.map((item) => <ProductItem key={item.id} item={item} />)
           : "NO PRODUCTS"}

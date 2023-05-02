@@ -4,7 +4,7 @@
 abstract class Product
 {
 
-    protected $userData;
+    protected $formData;
     protected $sku;
     protected $name;
     protected $price;
@@ -16,7 +16,7 @@ abstract class Product
 
     public function __construct($result)
     {
-        $this->userData = $result;
+        $this->formData = $result;
         $this->sku = $result['sku'];
         $this->name = $result['name'];
         $this->price = $result['price'];

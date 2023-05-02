@@ -10,6 +10,6 @@ class Dvd extends Product
         parent::__construct($result);
         $this->type = "Dvd";
         $this->specificAttribute = 'Size';
-        $this->attributeValue = $this->userData['size'] . " GB";
+        $this->attributeValue = $this->formData['size'] . " GB";
     }
 }
