@@ -1,11 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { RootState, AppDispatch } from "../../redux/store";
 import { createProduct } from "../../redux/products/products";
 
 const ButtonType = () => {
-  const navigate = useNavigate();
-
   const weight = useSelector((state: RootState) => state.form.weight);
   const height = useSelector((state: RootState) => state.form.height);
   const width = useSelector((state: RootState) => state.form.width);

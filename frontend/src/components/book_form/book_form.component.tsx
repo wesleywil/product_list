@@ -17,6 +17,7 @@ const BookForm = () => {
         <input
           type="number"
           name="weight"
+          id="weight"
           onChange={handleInputChange}
           className="grow border border-blue-500 rounded outline-0"
         />

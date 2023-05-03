@@ -16,6 +16,7 @@ const DvdForm = () => {
         <input
           type="number"
           name="size"
+          id="size"
           onChange={handleInputChange}
           required
           className="grow border border-blue-500 rounded outline-0"

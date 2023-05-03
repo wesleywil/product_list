@@ -36,23 +36,24 @@ const Homepage = () => {
       <PageMenu title="Product List">
         <Link
           to="/addproduct"
+          id=""
           className=" pt-1 px-2 bg-blue-400 hover:bg-blue-600 text-white hover:text-slate-200 text-xl font-bold rounded transition duration-700 ease-in-out"
         >
-          Add
+          ADD
         </Link>
         {products_id.length ? (
           <button
             onClick={handleDelete}
             className="px-2 bg-red-400 hover:bg-red-600 text-white hover:text-slate-200 text-xl font-bold rounded transition duration-700 ease-in-out"
           >
-            Mass Delete
+            MASS DELETE
           </button>
         ) : (
           <button
             disabled
             className="px-2 bg-slate-400 text-white text-xl font-bold rounded"
           >
-            Mass Delete
+            MASS DELETE
           </button>
         )}
       </PageMenu>

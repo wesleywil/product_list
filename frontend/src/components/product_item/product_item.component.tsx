@@ -28,7 +28,11 @@ const ProductItem = ({ item }: ProductItemProp) => {
   return (
     <div className="w-52 p-2  border-2 rounded">
       <div>
-        <input type="checkbox" onChange={handleChange} />
+        <input
+          type="checkbox"
+          className="delete-checkbox"
+          onChange={handleChange}
+        />
       </div>
       <div className="p-2 flex flex-col justify-center items-center text-xl">
         <h1 className="mb-2 text-center border-b-2">{item.sku}</h1>

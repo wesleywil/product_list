@@ -16,6 +16,7 @@ const FurnitureForm = () => {
         <label>Height(CM)</label>
         <input
           name="height"
+          id="height"
           type="text"
           required
           onChange={handleInputChange}
@@ -26,6 +27,7 @@ const FurnitureForm = () => {
         <label>Width(CM)</label>
         <input
           name="width"
+          id="width"
           type="text"
           required
           onChange={handleInputChange}
@@ -36,6 +38,7 @@ const FurnitureForm = () => {
         <label>Length(CM)</label>
         <input
           name="length"
+          id="length"
           type="text"
           required
           onChange={handleInputChange}

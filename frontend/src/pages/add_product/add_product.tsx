@@ -52,12 +52,13 @@ const AddProduct = () => {
       </PageMenu>
       {/* Form */}
       <div className="p-2 flex flex-col items-center justify-center gap-4">
-        <form className="text-xl flex flex-col gap-3">
+        <form id="product_form" className="text-xl flex flex-col gap-3">
           <div className="flex gap-2 order">
             <label>SKU</label>
             <input
               type="text"
               name="sku"
+              id="sku"
               onChange={handleInputChange}
               required
               className="grow border border-blue-500 rounded outline-0"
@@ -68,6 +69,7 @@ const AddProduct = () => {
             <input
               type="text"
               name="name"
+              id="name"
               onChange={handleInputChange}
               required
               className="grow border border-blue-500 rounded outline-0"
@@ -79,6 +81,7 @@ const AddProduct = () => {
             <input
               type="number"
               name="price"
+              id="price"
               onChange={handleInputChange}
               required
               className="grow border border-blue-500 rounded outline-0"
@@ -87,6 +90,7 @@ const AddProduct = () => {
           <div className="flex gap-2 order">
             <label>Type Switcher</label>
             <select
+              id="productType"
               className="grow border border-blue-500 rounded outline-0"
               onChange={handleTypeChange}
               value={form_type}
